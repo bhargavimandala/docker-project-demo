@@ -1,0 +1,27 @@
+## using docker-compose it will run all container at a time, instead of doing one by one
+version: "3.9"
+networks:
+  roboshop:
+    driver: bridge
+services:
+  web:
+    image: web:v1
+    container_name: webapp
+    depends_on: 
+    - catalogue
+  catalogue:
+    image: catalogue:v1
+    container_name: catalogue
+    depends_on:
+    - mongodb
+  mongodb:
+    image: mongodb:v1
+    container_name: mongodb
+  redis:
+    image: redis  
+  user:
+    image: user:v1 
+    container_name: user
+    depends_on:
+    - mongodb
+    - redis
